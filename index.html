@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gửi bé iu 💖</title>
+    <style>
+      body {
+        background-color: #7cd0f1;
+        margin: 0;
+        overflow: hidden;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+      }
+
+      h1 {
+        margin-top: 80px;
+        font-size: 2rem;
+        color: #ff3f94;
+        text-shadow: 1px 1px white;
+        animation: popText 1.5s infinite alternate;
+      }
+
+      @keyframes popText {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.05);
+        }
+      }
+
+      .heart-button {
+        background-color: #ff5ca1;
+        border: none;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, background-color 0.3s;
+        margin-top: 30px;
+      }
+
+      .heart-button:hover {
+        transform: scale(1.1);
+        background-color: #ff2e88;
+      }
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>mời bé iu ấn vô đây 💌</h1>
+    <button class="heart-button" onclick="goToLovePage()">💖</button>
+
+    <canvas id="snowCanvas"></canvas>
+
+    <script>
+      function goToLovePage() {
+        window.location.href = "https://thotrangcute.github.io/tim-tim-tim/";
+      }
+
+      // Hiệu ứng tuyết rơi ❄️
+      const canvas = document.getElementById("snowCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      const snowflakes = [];
+
+      function createSnowflake() {
+        snowflakes.push({
+          x: Math.random() * width,
+          y: -10,
+          radius: Math.random() * 4 + 1,
+          speedY: Math.random() * 1 + 0.5,
+          speedX: Math.random() * 1 - 0.5,
+        });
+      }
+
+      function drawSnowflakes() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        for (let flake of snowflakes) {
+          ctx.moveTo(flake.x, flake.y);
+          ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        }
+        ctx.fill();
+        updateSnowflakes();
+      }
+
+      function updateSnowflakes() {
+        for (let flake of snowflakes) {
+          flake.y += flake.speedY;
+          flake.x += flake.speedX;
+
+          if (flake.y > height) {
+            flake.y = -10;
+            flake.x = Math.random() * width;
+          }
+        }
+      }
+
+      function animateSnow() {
+        drawSnowflakes();
+        requestAnimationFrame(animateSnow);
+      }
+
+      window.addEventListener("resize", () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      for (let i = 0; i < 100; i++) createSnowflake();
+      animateSnow();
+    </script>
+  </body>
+</html>
