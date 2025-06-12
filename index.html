@@ -2,128 +2,188 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gửi bé iu 💖</title>
+    <title>Thư gửi bé iu 💌</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
-        background-color: #7cd0f1;
+        font-family: "Patrick Hand", cursive;
+        background: linear-gradient(to right, #ffe4ec, #ffd6f0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
         margin: 0;
         overflow: hidden;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .open-letter-btn {
+        padding: 18px 30px;
+        font-size: 22px;
+        border: none;
+        background: #ff69b4;
+        color: white;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        z-index: 2;
+        position: relative;
+      }
+
+      .open-letter-btn:hover {
+        background: #ff1493;
+        transform: scale(1.05);
+      }
+
+      .love-letter {
+        display: none;
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         text-align: center;
+        width: 500px;
+        animation: fadeIn 0.5s ease-out forwards;
+        border: 4px dashed #ffb6c1;
+        z-index: 2;
       }
 
-      h1 {
-        margin-top: 80px;
-        font-size: 2rem;
-        color: #ff3f94;
-        text-shadow: 1px 1px white;
-        animation: popText 1.5s infinite alternate;
+      .love-text {
+        font-size: 28px;
+        color: #c2185b;
+        margin-bottom: 30px;
       }
 
-      @keyframes popText {
+      .heart-btn {
+        background-color: #ff1493;
+        border: none;
+        font-size: 22px;
+        padding: 12px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        color: white;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .heart-btn:hover {
+        background-color: #e91e63;
+        transform: scale(1.1);
+      }
+
+      @keyframes fadeIn {
         from {
-          transform: scale(1);
+          opacity: 0;
+          transform: translate(-50%, 0);
         }
         to {
-          transform: scale(1.05);
+          opacity: 1;
+          transform: translate(-50%, 0);
         }
       }
 
-      .heart-button {
-        background-color: #ff5ca1;
-        border: none;
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        font-size: 2.5rem;
-        color: white;
-        cursor: pointer;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s, background-color 0.3s;
-        margin-top: 30px;
-      }
-
-      .heart-button:hover {
-        transform: scale(1.1);
-        background-color: #ff2e88;
-      }
-
-      canvas {
+      /* Canvas tuyết */
+      #snowCanvas {
         position: fixed;
         top: 0;
         left: 0;
         pointer-events: none;
-        z-index: 9999;
+        z-index: 1;
       }
     </style>
   </head>
   <body>
-    <h1>mời bé iu ấn vô đây 💌</h1>
-    <button class="heart-button" onclick="goToLovePage()">💖</button>
+    <button class="open-letter-btn">💌 Mở thư bé iu</button>
+
+    <div class="love-letter" id="loveLetter">
+      <div class="love-text">
+        Bé iu ơi 😢<br />
+        Bé không có thương me...<br />
+        mà me thương bé quá trời luôn á 💕
+      </div>
+      <button
+        class="heart-btn"
+        onclick="window.location.href='https://thotrangcute.github.io/tim-tim-tim/'"
+      >
+        ❤️ mời bé iu ấn vô
+      </button>
+    </div>
 
     <canvas id="snowCanvas"></canvas>
 
     <script>
-      function goToLovePage() {
-        window.location.href = "https://thotrangcute.github.io/tim-tim-tim/";
-      }
+      // Mở thư
+      document
+        .querySelector(".open-letter-btn")
+        .addEventListener("click", () => {
+          document.getElementById("loveLetter").style.display = "block";
+        });
 
-      // Hiệu ứng tuyết rơi ❄️
+      // Tuyết rơi
       const canvas = document.getElementById("snowCanvas");
       const ctx = canvas.getContext("2d");
+      let W = window.innerWidth;
+      let H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
 
-      let width = (canvas.width = window.innerWidth);
-      let height = (canvas.height = window.innerHeight);
+      const maxFlakes = 100;
+      const flakes = [];
 
-      const snowflakes = [];
-
-      function createSnowflake() {
-        snowflakes.push({
-          x: Math.random() * width,
-          y: -10,
-          radius: Math.random() * 4 + 1,
-          speedY: Math.random() * 1 + 0.5,
-          speedX: Math.random() * 1 - 0.5,
+      for (let i = 0; i < maxFlakes; i++) {
+        flakes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 4 + 1,
+          d: Math.random() * maxFlakes,
         });
       }
 
-      function drawSnowflakes() {
-        ctx.clearRect(0, 0, width, height);
+      function drawFlakes() {
+        ctx.clearRect(0, 0, W, H);
         ctx.fillStyle = "white";
         ctx.beginPath();
-        for (let flake of snowflakes) {
-          ctx.moveTo(flake.x, flake.y);
-          ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        for (let i = 0; i < maxFlakes; i++) {
+          const f = flakes[i];
+          ctx.moveTo(f.x, f.y);
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
         }
         ctx.fill();
-        updateSnowflakes();
+        moveFlakes();
       }
 
-      function updateSnowflakes() {
-        for (let flake of snowflakes) {
-          flake.y += flake.speedY;
-          flake.x += flake.speedX;
+      let angle = 0;
+      function moveFlakes() {
+        angle += 0.01;
+        for (let i = 0; i < maxFlakes; i++) {
+          const f = flakes[i];
+          f.y += Math.cos(angle + f.d) + 1 + f.r / 2;
+          f.x += Math.sin(angle) * 2;
 
-          if (flake.y > height) {
-            flake.y = -10;
-            flake.x = Math.random() * width;
+          if (f.y > H) {
+            flakes[i] = { x: Math.random() * W, y: 0, r: f.r, d: f.d };
           }
         }
       }
 
-      function animateSnow() {
-        drawSnowflakes();
-        requestAnimationFrame(animateSnow);
-      }
+      setInterval(drawFlakes, 25);
 
+      // Resize canvas
       window.addEventListener("resize", () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W;
+        canvas.height = H;
       });
-
-      for (let i = 0; i < 100; i++) createSnowflake();
-      animateSnow();
     </script>
   </body>
 </html>
