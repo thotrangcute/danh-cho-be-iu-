@@ -2,36 +2,39 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <title>Thư gửi bé iu 💌</title>
+    <title>Tớ Thích Cậu 💘</title>
+    <link rel="stylesheet" href="./main.css" />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./main.css" />
   </head>
   <body>
-    <button class="open-letter-btn">💌 Mở thư bé iu</button>
+    <div class="card">
+      <div class="heart">❤️</div>
+      <h2>Gửi cậu 💌</h2>
+      <p>Tớ thích cậu... thật đấy 😳👉👈</p>
+      <img
+        class="love-image"
+        src="https://i.pinimg.com/564x/0c/ba/5b/0cba5b3a09d69e799c2b7c22375d1d8b.jpg"
+        alt="2 người yêu nhau cute"
+      />
 
-    <div class="love-letter" id="loveLetter">
-      <div class="love-text">
-        Bé iu ơi 💕<br /><br />
-        IU bé Hiền bởi sự đáng yêu, ngây thơ của em, sự đang iu vô cùng luôn làm
-        anh mềm lòng.<br /><br />
-        Iu quá đi thôi bé iu của anh ơi, sao lại dễ thương vậy chứ!<br />
-        Muốn lúc nào cũng ôm ôm.<br />
-        Ngày nào cũng rất muốn được ôm ôm bé iu đi ngủ.<br />
-        Iu iu bé iu 💖
+      <div class="buttons">
+        <button class="button" onclick="replyYes()">CÓ 🥺</button>
+        <button class="button" onclick="replyNo()">KHÔNG 😢</button>
       </div>
-      <button
-        class="heart-btn"
-        onclick="window.location.href='https://thotrangcute.github.io/be-tim/'"
-      >
-        ❤️ mời bé iu ấn vô
-      </button>
+
+      <div id="response"></div>
     </div>
 
-    <canvas id="snowCanvas"></canvas>
-
-    <script src="main.js"></script>
+    <audio id="loveSong" autoplay loop>
+      <source
+        src="https://cdn.pixabay.com/audio/2023/03/05/audio_b2c2d944d3.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+    <script src="./main.js"></script>
   </body>
 </html>

@@ -59,3 +59,31 @@ window.addEventListener("resize", () => {
   canvas.width = W;
   canvas.height = H;
 });
+
+      const emojis = ["💖", "💘", "💞", "🌷", "💕", "💓"];
+      function createFallingEmoji() {
+        const emoji = document.createElement("div");
+        emoji.classList.add("falling");
+        emoji.style.left = Math.random() * window.innerWidth + "px";
+        emoji.style.animationDuration = Math.random() * 2 + 3 + "s";
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        document.body.appendChild(emoji);
+        setTimeout(() => emoji.remove(), 6000);
+      }
+
+      setInterval(createFallingEmoji, 200);
+
+      function replyYes() {
+        document.getElementById("response").textContent =
+          "Me biết màaaa 😍💗 Bé LÀ vợ me me biết mà 💑";
+        for (let i = 0; i < 80; i++) createFallingEmoji();
+      }
+
+      function replyNo() {
+        document.getElementById("response").textContent =
+          "Huhu, hết yêu thương mk gòi  😭💔";
+      }
+
+      window.addEventListener("click", () => {
+        document.getElementById("loveSong").play();
+      });
